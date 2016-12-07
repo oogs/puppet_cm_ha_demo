@@ -46,11 +46,19 @@ ln -s /var/lib/puppet/ssl /etc/puppet/ssl
 echo "Starting the puppetmaster, this will generate a cert."
 service puppetserver start
 
-echo "Generating CM cert and stashing it on /vagrant."
+echo "Adding custom cert-copying user."
+# pw is "puppet-cert". Creative AND secure!
+useradd -g puppet -p '$1$usjK3dEi$73/.frA1u6D65y9WrqEQX0' puppet-cert
+mkdir /home/puppet-cert/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4reA361LptwXRmGcRkrLDw1MNRoRvUfBh06+oEqaoOfIAVzc3PkMhrDFcfOzHLjTcAxytVTAbF/0vGSBrd76N5ay4B37SoUErO8nsbh+DxCfwhBJ4vCQq76Uxe7sIwwcNb9RuEyxe9Wo576/eOaG3M6s/qlo62i9qbmk7zH/6fnjOZ6ZH1pj4aATU69Zy+GdkYBhrFf15SvUXJc3qLrT4xCaIuAJ1ZFk3B3F0uDCZ7N0FfMQEpuRbU6p+ZcERhPAOHEP8Px4PpADay+uL/3apLn9sWCfTa5iZWYultmDNKJmmdxLLTBzEaUvS3hgF0bPpbZEIRZSYt1CgxORU7rByQ== puppet-cert@demo-ca-vgrnt-01.local" > /home/puppet-cert/.ssh/authorized_keys
+chmod 600 /home/puppet-cert/.ssh/id_rsa.pub
+chown puppet-cert:puppet /home/puppet-cert/.ssh/id_rsa.pub
+
+echo "Generating CM cert."
 puppet cert generate demo-cm-vgrnt.local
-/bin/cp /var/lib/puppet/ssl/ca/signed/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/.
-/bin/cp /var/lib/puppet/ssl/private_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/private_demo-cm-vgrnt.local.pem #name change!
-/bin/cp /var/lib/puppet/ssl/public_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/public_demo-cm-vgrnt.local.pem #name change!
+# /bin/cp /var/lib/puppet/ssl/ca/signed/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/.
+# /bin/cp /var/lib/puppet/ssl/private_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/private_demo-cm-vgrnt.local.pem #name change!
+# /bin/cp /var/lib/puppet/ssl/public_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/public_demo-cm-vgrnt.local.pem #name change!
 
 echo "Starting services and ensuring they start on boot."
 service puppet start
