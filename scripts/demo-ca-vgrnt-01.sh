@@ -35,12 +35,12 @@ fi
 
 echo "Copying over pre-configured conf files."
 # puppet conf
-cp /vagrant/files/demo-ca-vgrnt-01/puppet.conf /etc/puppet/.
+/bin/cp /vagrant/files/demo-ca-vgrnt-01/puppet.conf /etc/puppet/.
 # puppet server conf
-cp /vagrant/files/demo-ca-vgrnt-01/logback.xml /etc/puppetserver/.
-cp /vagrant/files/demo-ca-vgrnt-01/bootstrap.cfg /etc/puppetserver/.
-cp /vagrant/files/demo-ca-vgrnt-01/webserver.conf /etc/puppetserver/conf.d/.
-cp /vagrant/files/demo-ca-vgrnt-01/puppetserver /etc/sysconfig/.
+/bin/cp /vagrant/files/demo-ca-vgrnt-01/logback.xml /etc/puppetserver/.
+/bin/cp /vagrant/files/demo-ca-vgrnt-01/bootstrap.cfg /etc/puppetserver/.
+/bin/cp /vagrant/files/demo-ca-vgrnt-01/webserver.conf /etc/puppetserver/conf.d/.
+/bin/cp /vagrant/files/demo-ca-vgrnt-01/puppetserver /etc/sysconfig/.
 ln -s /var/lib/puppet/ssl /etc/puppet/ssl
 
 echo "Starting the puppetmaster, this will generate a cert."
@@ -48,9 +48,9 @@ service puppetserver start
 
 echo "Generating CM cert and stashing it on /vagrant."
 puppet cert generate demo-cm-vgrnt.local
-cp /var/lib/puppet/ssl/ca/signed/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/.
-cp /var/lib/puppet/ssl/private_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/private_demo-cm-vgrnt.local.pem #name change!
-cp /var/lib/puppet/ssl/public_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/public_demo-cm-vgrnt.local.pem #name change!
+/bin/cp /var/lib/puppet/ssl/ca/signed/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/.
+/bin/cp /var/lib/puppet/ssl/private_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/private_demo-cm-vgrnt.local.pem #name change!
+/bin/cp /var/lib/puppet/ssl/public_keys/demo-cm-vgrnt.local.pem /vagrant/tmp/demo_certs/public_demo-cm-vgrnt.local.pem #name change!
 
 echo "Starting services and ensuring they start on boot."
 service puppet start
