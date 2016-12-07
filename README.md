@@ -16,7 +16,7 @@ This project contains a vagrant environment that consists of VMs:
 * HAProxy
     * Load balancer for Compile Master, and CA functions
 * Puppet agent
-    * Agent connected to CPOS infrastructure
+    * Agent connected to Puppet infrastructure
 
 ## Prerequisites
 
@@ -24,6 +24,7 @@ This project contains a vagrant environment that consists of VMs:
 * Sufficient disk space for all VMs. If you like to ride the line of a close to full local disk, you'll probably run into issues with this setup.
 * There are two vagrant.yml files, one for Mac and one for Windows.  Symlink the one you need to vagrant.yml.  For example:
     * `ln -s vagrant-mac.yml vagrant.yml`
+* The vagrant centos 6 image. You can add it manually using `vagrant box add centos/6 # for CentOS Linux 6`.
 
 ## VM Definitions
 
@@ -38,7 +39,7 @@ You should be able to create the VMs by doing the following
 This will create the VMs in the proper order. The VMs will be provisioned using scripts in the **scripts** directory.
 
 * **hosts.sh**: creates host file entries for each vm, so that they can resolve each other by name
-* **[role].sh**: where [role] is the host type of the system (e.g., pos-ca-vgrnt-01.sh).  These scripts do the heavy lifting. 
+* **[role].sh**: where [role] is the host type of the system (e.g., pos-ca-vgrnt-01.sh).  These scripts do the heavy lifting.
 
 **NOTE:** If you would like to test the manual instructions or production-ready automation, comment out the requisite provision script from the vagrant.yml file before you bring the systems up.
 
