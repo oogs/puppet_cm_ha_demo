@@ -49,11 +49,7 @@ mkdir -p /vagrant/tmp/environments/production
 echo "Generating correctly signed cert with bad/empty puppet run. Ignore these errors."
 puppet agent -t --server=demo-ca-vgrnt-01.local --noop
 
-echo "Adding custom cert-copying user."
-# pw is "puppet-cert". Creative AND secure!
-
-# simplify. Do this as root locally, puppet-cert remotely.
-# useradd -g puppet -p '$1$usjK3dEi$73/.frA1u6D65y9WrqEQX0' puppet-cert
+echo "Adding custom cert-copying cert."
 mkdir ~/.ssh
 chmod 700 ~/.ssh
 echo "-----BEGIN RSA PRIVATE KEY-----
